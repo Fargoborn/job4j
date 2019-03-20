@@ -1,4 +1,4 @@
-package ru.job4j.calculate;
+Ôªøpackage ru.job4j.calculate;
 
 public class Calculate{
 	public String echo(String value){
@@ -7,6 +7,6 @@ public class Calculate{
 
   public static void main(String[] args){
   Calculate calc = new Calculate();
-    System.out.println(calc.echo("˝ı"));
+    System.out.println(calc.echo("—ç—Ö"));
   }
 }
