@@ -12,7 +12,7 @@ public class Calculate{
 
 /**
 * Main.
-*@param calc - object.
+*@param args - args.
 */
   public static void main(String[] args){
   Calculate calc = new Calculate();
