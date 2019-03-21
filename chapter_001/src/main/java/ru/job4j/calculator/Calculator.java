@@ -29,7 +29,7 @@ public class Calculator {
      * Деление.
      * @param first Делимое.
      * @param second Делитель.
-     * @return Часное.
+     * @return Частное.
      */
     public double division(double first, double second) {
         return first / second;
