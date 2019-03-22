@@ -8,8 +8,8 @@ package ru.job4j.condition;
 public class Point {
     /**
      * Расстояние между точками.
-     * @param x1 абцисса точки 1.
-     * @param x2 абцисса точки 2.
+     * @param x1 абсцисса точки 1.
+     * @param x2 абсцисса точки 2.
      * @param y1 ордината точки 1.
      * @param y2 ордината точки 1.
      * @return Расстояние.
