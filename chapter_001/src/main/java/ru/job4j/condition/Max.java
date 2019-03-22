@@ -1,7 +1,7 @@
 package ru.job4j.condition;
 
 /**
- * Point.
+ * Max.
  *
  * @author Denis Barshchevsky (dealba1@yandex.ru)
  */
