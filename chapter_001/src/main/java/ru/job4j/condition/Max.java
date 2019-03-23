@@ -13,6 +13,6 @@ public class Max {
      * @return Максимальное.
      */
     public int max(int left, int right) {
-        return left > right ? left:right;
+        return left > right ? left : right;
     }
 }
