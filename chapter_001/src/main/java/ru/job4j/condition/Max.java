@@ -6,6 +6,12 @@ package ru.job4j.condition;
  * @author Denis Barshchevsky (dealba1@yandex.ru)
  */
 public class Max {
+
+
+    public Max() {
+
+    }
+
     /**
      * Максимальное из двух чисел.
      * @param left первое число.

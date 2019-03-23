@@ -1,0 +1,19 @@
+package ru.job4j.condition;
+
+import org.junit.Test;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+
+/**
+ * @author Denis Barshchevsky (dealba1@yandex.ru)
+ * @version $Id$
+ * @since 0.1
+ */
+public class MultiMaxeTest {
+  @Test
+  public void whenSecondMax() {
+    MultiMax check = new MultiMax();
+    int result = check.max(1, 4, 2);
+    assertThat(result, is(4));
+  }
+}
