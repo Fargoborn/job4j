@@ -12,15 +12,13 @@ public class Check {
    * @return true или false.
    */
   public boolean mono(boolean[] data) {
-    boolean result = false;
+    boolean result = true;
     boolean element = data[0];
     for (boolean datum : data) {
-      if (datum == element) {
-        result = true;
-      } else {
+      if (datum != element) {
         result = false;
         break;
-      }
+        }
     }
     return result;
   }
