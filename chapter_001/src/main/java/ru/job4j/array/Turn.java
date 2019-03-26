@@ -13,13 +13,10 @@ public class Turn {
      */
     public int[] back(int[] array) {
         int temp; //временная переменная.
-        for (int i = 0; i < array.length; i++) {
+        for (int i = 0; i < array.length / 2; i++) {
             temp = array[i];
             array[i] = array[(array.length - 1) - i];
             array[(array.length - 1) - i] = temp;
-            if (i == (array.length / 2) - 1) {
-                break;
-            }
         }
         return array;
     }
