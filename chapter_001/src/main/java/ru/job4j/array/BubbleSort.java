@@ -26,9 +26,7 @@ public class BubbleSort {
                 array[i + 1] = temp;
             }
         }
-        if (array[i] == array[length - 1]) {
             length = length - 1;
-        }
     }
      return array;
   }
