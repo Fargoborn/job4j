@@ -21,9 +21,11 @@ public class MatrixCheck {
         for (i = 0; i < size; i++) {
             if (data[i][i] != iincell) {
                 result = false;
+                break;
             }
             if (data[i][j] != jincell) {
                 result = false;
+                break;
             }
             j = j - 1;
         }
