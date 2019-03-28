@@ -16,12 +16,16 @@ public class MatrixCheck {
         int size = data.length;
         int i = 0;
         int j = size - 1;
-        boolean incell = data[i][j];
+        boolean iincell = data[i][i];
+        boolean jincell = data[i][j];
         for (i = 0; i < size; i++) {
-            if (data[i][i] != incell || data[i][j] != incell) {
+            if (data[i][i] != iincell) {
                 result = false;
-                j = j - 1;
             }
+            if (data[i][j] != jincell) {
+                result = false;
+            }
+            j = j - 1;
         }
         return result;
     }

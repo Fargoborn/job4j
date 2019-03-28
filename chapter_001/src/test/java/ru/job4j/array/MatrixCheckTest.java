@@ -38,13 +38,13 @@ public class MatrixCheckTest {
     public void whenDataEvenNumberElements() {
         MatrixCheck check = new MatrixCheck();
         boolean[][] input = new boolean[][] {
-                {true, true, false, false},
+                {false, true, false, true},
                 {false, false, true, false},
-                {true, false, true, false},
+                {true, true, false, false},
                 {true, false, true, false}
         };
         boolean result = check.mono(input);
-        assertThat(result, is(false));
+        assertThat(result, is(true));
     }
 
     @Test
