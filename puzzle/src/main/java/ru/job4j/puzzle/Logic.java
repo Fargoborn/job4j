@@ -74,18 +74,27 @@ public class Logic {
         //Проверка по горизонтали
         for (int row = 0; row != table.length; row++) {
           for (int cell = 0; cell != table.length; cell++) {
-            System.out.print(table[cell][row] + " ");
             if (table[cell][row] == win) {
               count++;
             }
           }
-          System.out.println(count);
           if (count == table.length) {
             result = true;
           }
           count = 0;
         }
-      System.out.println();
+        //Проверка по вертикали
+        for (int cell = 0; cell != table.length; cell++) {
+            for (int row = 0; row != table.length; row++) {
+                if (table[cell][row] == win) {
+                    count++;
+                }
+            }
+            if (count == table.length) {
+                result = true;
+            }
+            count = 0;
+        }
       return result;
     }
 
