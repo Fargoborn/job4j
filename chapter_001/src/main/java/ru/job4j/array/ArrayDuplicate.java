@@ -14,39 +14,15 @@ public class ArrayDuplicate {
      * @return Массив.
      */
     public String[] remove(String[] array) {
-       String string;
-       String temp;
-       boolean sortarr = false;
-       int counter = 0;
-       int length = array.length;
-       while (!sortarr) {
-            sortarr = true;
-            //заменяем дубликаты на "Duplicate"
-            for (int i = 0; i < length; i++) {
-                string = array[i];
-                for (int j = i + 1; j < length; j++) {
-                    if ((j + 1) > length) {
-                    break;
-                    }
-                    if (array[j].equals(string)) {
-                        array[j] = "Duplicate";
-                        counter = counter++;
-                    }
+        int uniq = array.length;
+        for (int out = 0; out < uniq; out++) {
+            for (int in = out + 1; in < uniq; in++) {
+                if (array[out].equals(array[in])) {
+                    array[in] = array[uniq - 1];
+                    uniq--;
                 }
             }
-            //Перемещаем "Duplicate" в конец массива
-            for (int i = 0; i < length - 1; i++) {
-                if (array[i].equals("Duplicate")) {
-                    sortarr = false;
-                    temp = array[i];
-                    array[i] = array[i + 1];
-                    array[i + 1] = temp;
-                }
-            }
-            length = length - 1;
-       }
-        //Отсекаем все все элементы == "Duplicate"
-        array = Arrays.copyOf(array, length - counter);
-        return array;
+        }
+       return Arrays.copyOf(array, uniq);
     }
 }
