@@ -1,6 +1,9 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+
+import static java.util.Arrays.copyOfRange;
 
 /**
  * @version $Id$
@@ -23,8 +26,7 @@ public class Tracker {
      * @return Уникальный ключ.
      */
     private String generateId() {
-        String id = String.valueOf(((int) (System.currentTimeMillis() + Math.random())));
-        //System.out.println(id);
+        String id = String.valueOf(((System.currentTimeMillis() + Math.random())));
         return id;
     }
 
@@ -69,25 +71,54 @@ public class Tracker {
     }
 
     /**
-     * Метод реализаущий удаление заявок
+     * Метод реализаущий удаление заявки
      * @param id идентификатор заявки
      */
     public boolean delete(String id) {
         boolean result = false;
-        int uniq = items.length;
-        for (int out = 0; out < items.length; out++) {
-            for (int in = out + 1; in < uniq; in++) {
-                if (items[out].getId().equals(id)) {
-                    items[out] = null;
+        int length = items.length;
+        int count = 0;
+            for (int i = 0; i < length; i++) {
+                if (items[i].getId().equals(id)) {
+                    items[i] = null;
+                    break;
+                }
+                count++;
+            }
+            for (int j = count; j < length - 1; j++) {
+                if (items[j + 1] != null) {
+                    items[j] = items[j + 1];
+                } else {
                     result = true;
-                    items[in] = items[uniq - 1];
-                    uniq--;
+                    break;
                 }
             }
-        }
-        Arrays.copyOf(items, items.length);
         return result;
     }
 
+    /**
+     * Метод реализаущий получение списка всех заявок
+     */
+    public Item[] findAll() {
+        int counter = 0;
+        for (Item i : this.items) {
+            if (i != null) {
+                counter++;
+            }
+        }
+        return Arrays.copyOf(items, counter);
+    }
 
+    /**
+     * Метод реализаущий получение списка заявок по имени
+     */
+    public ArrayList<Item> findByName(String key) {
+        ArrayList<Item> itemsByName = new ArrayList<>();
+        for (int out = 0; out < items.length; out++) {
+            if (items[out] != null && items[out].getName().equals(key)) {
+                    itemsByName.add(items[out]);
+                }
+            }
+        return itemsByName;
+    }
 }
