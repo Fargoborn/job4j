@@ -71,7 +71,7 @@ public class TrackerTest {
         tracker.add(second);
         Item third = new Item("test1", "testDescription", created);
         tracker.add(third);
-        ArrayList<Item> result = tracker.findByName("test1");
-        assertThat(result.get(0).getName() + " " + result.get(1).getName(), is("test1 test1"));
+        Item[] result = tracker.findByName("test1");
+        assertThat(result[0].getName() + " " + result[1].getName(), is("test1 test1"));
     }
 }

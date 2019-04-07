@@ -46,9 +46,11 @@ public class Tracker {
      */
     public Item findById(String id) {
         Item item = null;
-        for (int i = 0; i < items.length; i++) {
+        for (int i = 0; i <= position; i++) {
             if (items[i] != null && items[i].getId().equals(id)) {
                 item = this.items[i];
+                item.setId(id);
+                break;
             }
         }
         return item;
@@ -61,7 +63,7 @@ public class Tracker {
      */
     public boolean replace(String id, Item item) {
         boolean result = false;
-        for (int i = 0; i < items.length; i++) {
+        for (int i = 0; i <= position; i++) {
             if (items[i] != null && items[i].getId().equals(id)) {
                 this.items[i] = item;
                 result = true;
@@ -76,16 +78,15 @@ public class Tracker {
      */
     public boolean delete(String id) {
         boolean result = false;
-        int length = items.length;
         int count = 0;
-            for (int i = 0; i < length; i++) {
+            for (int i = 0; i <= position; i++) {
                 if (items[i].getId().equals(id)) {
                     items[i] = null;
                     break;
                 }
                 count++;
             }
-            for (int j = count; j < length - 1; j++) {
+            for (int j = count; j <= position - 1; j++) {
                 if (items[j + 1] != null) {
                     items[j] = items[j + 1];
                 } else {
@@ -100,25 +101,22 @@ public class Tracker {
      * Метод реализаущий получение списка всех заявок
      */
     public Item[] findAll() {
-        int counter = 0;
-        for (Item i : this.items) {
-            if (i != null) {
-                counter++;
-            }
-        }
-        return Arrays.copyOf(items, counter);
+        return Arrays.copyOf(this.items, this.position);
     }
 
     /**
      * Метод реализаущий получение списка заявок по имени
      */
-    public ArrayList<Item> findByName(String key) {
-        ArrayList<Item> itemsByName = new ArrayList<>();
-        for (int out = 0; out < items.length; out++) {
+    public Item[] findByName(String key) {
+        int count = 0;
+        Item[] itemsByName = new Item[position];
+        for (int out = 0; out <= position; out++) {
             if (items[out] != null && items[out].getName().equals(key)) {
-                    itemsByName.add(items[out]);
+                    itemsByName[count] = items[out];
+                    count++;
+
                 }
             }
-        return itemsByName;
+        return Arrays.copyOf(itemsByName, count);
     }
 }
