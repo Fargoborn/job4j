@@ -79,12 +79,15 @@ public class Tracker {
             for (count = 0; count < position; count++) {
                 if (items[count].getId().equals(id)) {
                     items[count] = null;
+                    result = true;
                     break;
                 }
             }
-            System.arraycopy(items, count + 1, items, count, position - 1);
-            items[position - 1] = null;
-            position = position - 1;
+            if (result == true) {
+              System.arraycopy(items, count + 1, items, count, position - 1);
+              items[position - 1] = null;
+              position = position - 1;
+            }
             return result;
     }
 
