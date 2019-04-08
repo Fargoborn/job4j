@@ -1,9 +1,6 @@
 package ru.job4j.tracker;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-
-import static java.util.Arrays.copyOfRange;
 
 /**
  * @version $Id$
@@ -46,10 +43,9 @@ public class Tracker {
      */
     public Item findById(String id) {
         Item item = null;
-        for (int i = 0; i <= position; i++) {
+        for (int i = 0; i < position; i++) {
             if (items[i] != null && items[i].getId().equals(id)) {
                 item = this.items[i];
-                item.setId(id);
                 break;
             }
         }
@@ -63,9 +59,10 @@ public class Tracker {
      */
     public boolean replace(String id, Item item) {
         boolean result = false;
-        for (int i = 0; i <= position; i++) {
+        for (int i = 0; i < position; i++) {
             if (items[i] != null && items[i].getId().equals(id)) {
                 this.items[i] = item;
+                item.setId(id);
                 result = true;
             }
         }
@@ -78,23 +75,15 @@ public class Tracker {
      */
     public boolean delete(String id) {
         boolean result = false;
-        int count = 0;
-            for (int i = 0; i <= position; i++) {
-                if (items[i].getId().equals(id)) {
-                    items[i] = null;
-                    break;
-                }
-                count++;
-            }
-            for (int j = count; j <= position - 1; j++) {
-                if (items[j + 1] != null) {
-                    items[j] = items[j + 1];
-                } else {
-                    result = true;
+        int count;
+            for (count = 0; count < position; count++) {
+                if (items[count].getId().equals(id)) {
+                    items[count] = null;
                     break;
                 }
             }
-        return result;
+            System.arraycopy(items, count + 1, items, count, position - 1);
+            return result;
     }
 
     /**
@@ -110,7 +99,7 @@ public class Tracker {
     public Item[] findByName(String key) {
         int count = 0;
         Item[] itemsByName = new Item[position];
-        for (int out = 0; out <= position; out++) {
+        for (int out = 0; out < position; out++) {
             if (items[out] != null && items[out].getName().equals(key)) {
                     itemsByName[count] = items[out];
                     count++;

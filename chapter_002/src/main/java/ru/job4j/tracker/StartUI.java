@@ -89,7 +89,7 @@ public class StartUI {
     System.out.println("------------ Добавление новой заявки --------------");
     String name = this.input.ask("Введите имя заявки :");
     String desc = this.input.ask("Введите описание заявки :");
-    Item item = new Item(name, desc);
+    Item item = new Item(name, desc, System.currentTimeMillis());
     this.tracker.add(item);
     System.out.println("------------ Новая заявка с getId : " + item.getId() + "-----------");
   }
@@ -106,7 +106,7 @@ public class StartUI {
     System.out.println("4. Find item by Id");
     System.out.println("5. Find items by name");
     System.out.println("6. Exit Program");
-    System.out.println("Select:");
+    System.out.println();
   }
 
   /**
