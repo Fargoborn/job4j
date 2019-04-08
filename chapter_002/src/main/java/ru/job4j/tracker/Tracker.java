@@ -83,6 +83,8 @@ public class Tracker {
                 }
             }
             System.arraycopy(items, count + 1, items, count, position - 1);
+            items[position - 1] = null;
+            position = position - 1;
             return result;
     }
 
