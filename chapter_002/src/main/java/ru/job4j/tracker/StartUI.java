@@ -115,8 +115,12 @@ public class StartUI {
     private void showItemByID() {
         System.out.println("------------ Поиск заявки по ID --------------");
         String id = this.input.ask("Введите ID заявки :");
-        Item item = this.tracker.findById(id);
-        System.out.println("------------ ID : " + item.getId() + " NAME : " + item.getName() + " DESCRIPTION : " + item.getDecs() + " -----------");
+        if (this.tracker.findById(id) != null) {
+          Item item = this.tracker.findById(id);
+          System.out.println("------------ ID : " + item.getId() + " NAME : " + item.getName() + " DESCRIPTION : " + item.getDecs() + " -----------");
+        } else {
+            System.out.println("------------ Заявка : " + id + " не найдена -----------");
+        }
     }
 
     /**
@@ -126,8 +130,12 @@ public class StartUI {
         System.out.println("------------ Поиск заявки по NAME --------------");
         String name = this.input.ask("Введите NAME заявки :");
         Item[] items = this.tracker.findByName(name);
-        for (Item item : items) {
-        System.out.println("------------ ID : " + item.getId() + " NAME : " + item.getName() + " DESCRIPTION : " + item.getDecs() + " -----------");
+        if (items.length != 0) {
+          for (Item item : items) {
+          System.out.println("------------ ID : " + item.getId() + " NAME : " + item.getName() + " DESCRIPTION : " + item.getDecs() + " -----------");
+          }
+        } else {
+            System.out.println("------------ Заявок с именем : " + name + " не найдено -----------");
         }
     }
 
@@ -152,10 +160,8 @@ public class StartUI {
         String id = this.input.ask("Введите ID изменяемой заявки :");
         String name = this.input.ask("Введите новое имя заявки :");
         String desc = this.input.ask("Введите новое описание заявки :");
-        Item item = this.tracker.findById(id);
+        Item item = new Item(name, desc, System.currentTimeMillis());
         if (this.tracker.replace(id, item)) {
-            item.setName(name);
-            item.setDecs(desc);
             System.out.println("------------ Заявка : " + id + " изменена -----------");
             } else {
                 System.out.println("------------ Заявка : " + id + " не найдена -----------");
