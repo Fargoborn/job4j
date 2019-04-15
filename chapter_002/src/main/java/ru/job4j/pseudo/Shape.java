@@ -6,5 +6,7 @@ package ru.job4j.pseudo;
  * @since 0.1
  */
 public interface Shape {
-  public String draw();
+
+    String draw();
 }
+
