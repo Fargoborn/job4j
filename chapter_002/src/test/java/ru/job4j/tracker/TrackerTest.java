@@ -1,6 +1,11 @@
 package ru.job4j.tracker;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -123,4 +128,72 @@ public class TrackerTest {
         assertThat(tracker.findByName(item.getName())[0].getName(), is("test name"));
     }
 
+    PrintStream stdout = System.out;
+    ByteArrayOutputStream out = new ByteArrayOutputStream();
+    String nline = System.getProperty("line.separator");
+
+    @Before
+    public void loadOutput() {
+        System.out.println("execute before method");
+        System.setOut(new PrintStream(this.out));
+    }
+
+    @After
+    public void backOutput() {
+        System.setOut(this.stdout);
+        System.out.println("execute after method");
+    }
+
+    private String getMenu() {
+        StringBuilder result = new StringBuilder()
+                .append("Меню." + nline)
+                .append("0. Добавить новую заявку" + nline)
+                .append("1. Показать все заявки" + nline)
+                .append("2. Редактировать заявку"  + nline)
+                .append("3. Удалить заявку" + nline)
+                .append("4. Найти заявку по Id" + nline)
+                .append("5. Найти заявку по имени" + nline)
+                .append("6. Выйти из программы")
+                .append(nline);
+        return result.toString();
+    }
+
+    @Test
+    public void userAddItemsThenTrackerFindItemByName() {
+        Tracker tracker = new Tracker();
+        Item item = tracker.add(new Item("test name", "desc", System.currentTimeMillis()));
+        Input input = new StubInput(new String[]{"5", item.getName(), "6"});
+        StringBuilder expected = new StringBuilder()
+                .append(this.getMenu())
+                .append(nline)
+                .append("------------ Поиск заявки по NAME --------------" + nline)
+                .append("------------ ID : " + item.getId() + " NAME : " + item.getName() + " DESCRIPTION : " + item.getDecs() + " -----------")
+                .append(nline)
+                .append(this.getMenu())
+                .append(nline);
+        new StartUI(input, tracker).init();
+        assertThat(new String(out.toByteArray()), is(expected.toString()));
+    }
+
+    @Test
+    public void userAddItemsThenTrackerFindAll() {
+        Tracker tracker = new Tracker();
+        Item item1 = tracker.add(new Item("test1 name", "desc1", System.currentTimeMillis()));
+        Item item2 = tracker.add(new Item("test2 name", "desc2", System.currentTimeMillis()));
+        Item item3 = tracker.add(new Item("test3 name", "desc3", System.currentTimeMillis()));
+        Input input = new StubInput(new String[]{"1", "6"});
+        Item[] result = tracker.findAll();
+        StringBuilder expected = new StringBuilder()
+                .append(this.getMenu())
+                .append(nline)
+                .append("------------ Вывод всех заявок --------------" + nline);
+                for (Item item : result) {
+                    expected.append("------------ ID : " + item.getId() + " NAME : " + item.getName() + " DESCRIPTION : " + item.getDecs() + " -----------").append(nline);
+                }
+        expected.append (this.getMenu())
+                .append(nline);
+        new StartUI(input, tracker).init();
+        assertThat(new String(out.toByteArray()), is(expected.toString()));
+        System.setOut(stdout);
+    }
 }
