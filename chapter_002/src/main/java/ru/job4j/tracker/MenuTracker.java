@@ -41,13 +41,13 @@ public class MenuTracker {
      * Метод заполняет массив.
      */
     public void fillActions() {
-        this.actions.add(new AddItem(0, "Add program"));
-        this.actions.add(new ShowItems(1, "Show all items"));
-        this.actions.add(new UpdateItem(2, "Edit item"));
-        this.actions.add(new DeleteItem(3, "Delete item"));
-        this.actions.add(new FindItemById(4, "Find item by Id"));
-        this.actions.add(new FindItemsByName(5, "Find items by name"));
-        this.actions.add(new ExitProgram(6, "Exit Program"));
+        this.actions.add(new AddItem(0, "Добавить заяву"));
+        //this.actions.add(new ShowItems(1, "Показать все заявки"));
+        //this.actions.add(new UpdateItem(2, "Редактировать заявку"));
+        //this.actions.add(new DeleteItem(3, "Удалить заявку"));
+        //this.actions.add(new FindItemById(4, "Найти заявку по Id"));
+        //this.actions.add(new FindItemsByName(5, "Найти заявку по имени"));
+        this.actions.add(new ExitProgram(6, "Выйти"));
     }
 
     /**
@@ -69,4 +69,109 @@ public class MenuTracker {
             }
         }
     }
+
+    private class AddItem implements UserAction {
+
+        /**
+         * Метод реализует добавление новой заявки в хранилище.
+         */
+        public AddItem(int key, String actions) {
+        }
+
+        @Override
+        public int key() {
+            return 0;
+        }
+
+        @Override
+        public void execute(Input input, Tracker tracker) {
+            System.out.println("------------ Добавление новой записи --------------");
+            String name = MenuTracker.this.input.ask("Пожалуйста, введите имя заявки:");
+            String desc = MenuTracker.this.input.ask("Пожалуйста, введите содержание заявки:");
+            Item item = new Item(name, desc, System.currentTimeMillis());
+            MenuTracker.this.tracker.add(item);
+            System.out.println("------------ Новая запись с Id : " + item.getId());
+            System.out.println("------------ Новая запись с Именем : " + item.getName());
+            System.out.println("------------ Новая запись с описанием : " + item.getDecs());
+        }
+
+        @Override
+        public String info() {
+            return "0. Добавить новую запись.";
+        }
+    }
+
+    private class DeleteItem implements UserAction {
+        @Override
+        public int key() {
+            return 0;
+        }
+
+        @Override
+        public void execute(Input input, Tracker tracker) {
+
+        }
+
+        @Override
+        public String info() {
+            return null;
+        }
+    }
+
+    private class FindAllItem implements UserAction {
+        @Override
+        public int key() {
+            return 0;
+        }
+
+        @Override
+        public void execute(Input input, Tracker tracker) {
+
+        }
+
+        @Override
+        public String info() {
+            return null;
+        }
+    }
+
+    private class FindByNameItem implements UserAction {
+        @Override
+        public int key() {
+            return 0;
+        }
+
+        @Override
+        public void execute(Input input, Tracker tracker) {
+
+        }
+
+        @Override
+        public String info() {
+            return null;
+        }
+    }
+
+    private class ExitProgram implements UserAction {
+
+        public ExitProgram(int key, String actions) {
+        }
+
+        @Override
+        public int key() {
+            return 6;
+        }
+
+        @Override
+        public void execute(Input input, Tracker tracker) {
+            MenuTracker menu = new MenuTracker(this.input, this.tracker);            menu.fillActions()
+        }
+
+        @Override
+        public String info() {
+            return "6. Выйти";
+        }
+    }
+
+
 }

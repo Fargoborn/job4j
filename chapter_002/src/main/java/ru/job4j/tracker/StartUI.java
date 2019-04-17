@@ -68,8 +68,8 @@ public class StartUI {
       menu.fillActions();
       do {
           menu.show();
-          menu.select(Integer.valueOf(input.ask("select:")));
-      } while (!"y".equals(this.input.ask("Exit?(y): ")));
+          menu.select(Integer.valueOf(input.ask("выбрать :")));
+      } while (!"да".equals(this.input.ask("Выйти?(да): ")));
   }
 
   /**
