@@ -190,7 +190,7 @@ public class TrackerTest {
                 for (Item item : result) {
                     expected.append("------------ ID : " + item.getId() + " NAME : " + item.getName() + " DESCRIPTION : " + item.getDecs() + " -----------").append(nline);
                 }
-        expected.append (this.getMenu())
+        expected.append(this.getMenu())
                 .append(nline);
         new StartUI(input, tracker).init();
         assertThat(new String(out.toByteArray()), is(expected.toString()));
