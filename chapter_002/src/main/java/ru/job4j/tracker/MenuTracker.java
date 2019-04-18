@@ -119,7 +119,7 @@ public class MenuTracker {
             System.out.println("------------ Список заявок --------------");
             Item[] result = tracker.findAll();
             for (Item item : result) {
-                System.out.println("------------ ID : " + item.getId() + " NAME : " + item.getName() + " DESCRIPTION : " + item.getDecs() + " -----------");
+                System.out.println(String.format("------------ ID : %s NAME : %s DESCRIPTION : %s -----------", item.getId(), item.getName(), item.getDecs()));
             }
         }
 
@@ -178,13 +178,11 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Удаление заявки --------------");
             String id = input.ask("Пожалуйста, введите ID заявки:");
-            Item item = tracker.findById(id);
-            if (item.getId().equals(id)) {
-            tracker.delete(id);
-            System.out.println("------------ Удалена запись -> Id : " + id);
-            } else {
-                System.out.println("------------ Заявка с таким ID не найдена --------------");
-            }
+            if (tracker.delete(id)) {
+                System.out.println("------------ Удалена запись -> Id : " + id);
+                } else {
+                    System.out.println("------------ Заявка с таким ID не найдена --------------");
+                }
         }
 
         @Override
@@ -211,12 +209,12 @@ public class MenuTracker {
             System.out.println("------------ Поиск заявки по ID --------------");
             String id = input.ask("Пожалуйста, введите ID заявки:");
             Item item = tracker.findById(id);
-            if (item.getId().equals(id)) {
-            System.out.println("------------ Найдена заявка --------------");
-            System.out.println("------------ ID : " + item.getId() + " NAME : " + item.getName() + " DESCRIPTION : " + item.getDecs() + " -----------");
-        } else {
-                System.out.println("------------ Заявка с таким ID не найдена --------------");
-            }
+            if (item != null) {
+                System.out.println("------------ Найдена заявка --------------");
+                System.out.println(String.format("------------ ID : %s NAME : %s DESCRIPTION : %s -----------", item.getId(), item.getName(), item.getDecs()));
+                } else {
+                    System.out.println("------------ Заявка с таким ID не найдена --------------");
+                }
         }
 
         @Override
@@ -246,7 +244,7 @@ public class MenuTracker {
             if (items.length > 0) {
                 System.out.println("------------ Найдены заявки --------------");
                 for (Item item : items) {
-                System.out.println("------------ ID : " + item.getId() + " NAME : " + item.getName() + " DESCRIPTION : " + item.getDecs() + " -----------");
+                System.out.println(String.format("------------ ID : %s NAME : %s DESCRIPTION : %s -----------", item.getId(), item.getName(), item.getDecs()));
                 }
             } else {
                 System.out.println("------------ Заявок с таким Именем не найдено --------------");

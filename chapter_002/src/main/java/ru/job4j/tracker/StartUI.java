@@ -99,7 +99,7 @@ public class StartUI {
         System.out.println("------------ Вывод всех заявок --------------");
         Item[] result = this.tracker.findAll();
         for (Item item : result) {
-        System.out.println("------------ ID : " + item.getId() + " NAME : " + item.getName() + " DESCRIPTION : " + item.getDecs() + " -----------");
+        System.out.println(String.format("------------ ID : %s NAME : %s DESCRIPTION : %s -----------", item.getId(), item.getName(), item.getDecs()));
         }
     }
 
@@ -111,7 +111,7 @@ public class StartUI {
         String id = this.input.ask("Введите ID заявки :");
         if (this.tracker.findById(id) != null) {
           Item item = this.tracker.findById(id);
-          System.out.println("------------ ID : " + item.getId() + " NAME : " + item.getName() + " DESCRIPTION : " + item.getDecs() + " -----------");
+          System.out.println(String.format("------------ ID : %s NAME : %s DESCRIPTION : %s -----------", item.getId(), item.getName(), item.getDecs()));
         } else {
             System.out.println("------------ Заявка : " + id + " не найдена -----------");
         }
@@ -126,7 +126,7 @@ public class StartUI {
         Item[] items = this.tracker.findByName(name);
         if (items.length != 0) {
           for (Item item : items) {
-          System.out.println("------------ ID : " + item.getId() + " NAME : " + item.getName() + " DESCRIPTION : " + item.getDecs() + " -----------");
+          System.out.println(String.format("------------ ID : %s NAME : %s DESCRIPTION : %s -----------", item.getId(), item.getName(), item.getDecs()));
           }
         } else {
             System.out.println("------------ Заявок с именем : " + name + " не найдено -----------");
