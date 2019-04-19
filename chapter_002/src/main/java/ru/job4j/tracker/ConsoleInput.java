@@ -21,10 +21,10 @@ public class ConsoleInput implements Input {
         break;
       }
     }
-    if (exist) {
-      return key;
-    } else {
-        throw new MenuOutException("Значение вне диапазона");
+    if (!exist) {
+      throw new MenuOutException("Значение вне диапазона");
     }
+    return key;
   }
 }
+
