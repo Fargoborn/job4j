@@ -12,8 +12,10 @@ public class ValidateInput extends ConsoleInput {
                 value = super.ask(question, range);
                 ivalid = false;
             } catch (MenuOutException moe) {
+                moe.printStackTrace();
                 System.out.println("Выберете значение из диапазона пунктов Меню");
             } catch (NumberFormatException nfe) {
+                nfe.printStackTrace();
                 System.out.println("Введите корректное значение");
             }
         } while (ivalid);
