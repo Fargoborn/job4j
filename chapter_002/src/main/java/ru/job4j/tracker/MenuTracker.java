@@ -41,13 +41,13 @@ public class MenuTracker {
      * Метод заполняет массив.
      */
     public void fillActions() {
-        this.actions.add(new AddItem(0, "Добавить заяву"));
-        this.actions.add(new ShowItems(1, "Показать все заявки"));
-        this.actions.add(new UpdateItem(2));
-        this.actions.add(new DeleteItem(3, "Удалить заявку"));
-        this.actions.add(new FindItemById(4, "Найти заявку по Id"));
-        this.actions.add(new FindItemsByName(5, "Найти заявку по имени"));
-        this.actions.add(new ExitProgram(6, "Выйти"));
+        this.actions.add(new AddItem(0, "Добавить заявку."));
+        this.actions.add(new ShowItems(1, "Показать все заявки."));
+        this.actions.add(new UpdateItem(2, "Редактировать заявку."));
+        this.actions.add(new DeleteItem(3, "Удалить заявку."));
+        this.actions.add(new FindItemById(4, "Найти заявку по Id."));
+        this.actions.add(new FindItemsByName(5, "Найти заявку по имени."));
+        this.actions.add(new ExitProgram(6, "Выйти."));
     }
 
     /**
@@ -71,6 +71,9 @@ public class MenuTracker {
     }
 
     private class AddItem implements UserAction {
+
+        int key = 0;
+        String actions = "Добавить заявку.";
 
         public AddItem(int key, String actions) {
         }
@@ -97,11 +100,14 @@ public class MenuTracker {
 
         @Override
         public String info() {
-            return "0. Добавить новую запись.";
+            return String.format("%s. %s", key, actions);
         }
     }
 
     private class ShowItems implements UserAction {
+
+        int key = 1;
+        String actions = "Показать все заявки.";
 
         public ShowItems(int key, String actions) {
         }
@@ -125,11 +131,17 @@ public class MenuTracker {
 
         @Override
         public String info() {
-            return "1. Показать все записи.";
+            return String.format("%s. %s", key, actions);
         }
     }
 
     private class UpdateItem implements UserAction {
+
+        int key = 2;
+        String actions = "Редактировать заявку.";
+
+        public UpdateItem(int key, String actions) {
+        }
 
         private UpdateItem(int key) {
         }
@@ -157,11 +169,14 @@ public class MenuTracker {
 
         @Override
         public String info() {
-            return "2. Редактировать запись.";
+            return String.format("%s. %s", key, actions);
         }
     }
 
     private class DeleteItem implements UserAction {
+
+        int key = 3;
+        String actions = "Удалить заявку.";
 
         private DeleteItem(int key, String actions) {
         }
@@ -187,11 +202,14 @@ public class MenuTracker {
 
         @Override
         public String info() {
-            return "3. Удалить запись.";
+            return String.format("%s. %s", key, actions);
         }
     }
 
     private class FindItemById implements UserAction {
+
+        int key = 4;
+        String actions = "Найти заявку по Id.";
 
         private FindItemById(int key, String actions) {
         }
@@ -219,11 +237,14 @@ public class MenuTracker {
 
         @Override
         public String info() {
-            return "4. Найти запись по ID.";
+            return String.format("%s. %s", key, actions);
         }
     }
 
     private class FindItemsByName implements UserAction {
+
+        int key = 5;
+        String actions = "Найти заявку по имени.";
 
         private FindItemsByName(int key, String actions) {
         }
@@ -253,11 +274,14 @@ public class MenuTracker {
 
         @Override
         public String info() {
-            return "5. Найти запись по Имени.";
+            return String.format("%s. %s", key, actions);
         }
     }
 
     private class ExitProgram implements UserAction {
+
+        int key = 6;
+        String actions = "Выйти.";
 
         private ExitProgram(int key, String actions) {
         }
@@ -278,7 +302,7 @@ public class MenuTracker {
 
         @Override
         public String info() {
-            return "6. Выйти";
+            return String.format("%s. %s", key, actions);
         }
     }
 }

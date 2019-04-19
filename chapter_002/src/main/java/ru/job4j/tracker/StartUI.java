@@ -76,7 +76,7 @@ public class StartUI {
       do {
           menu.show();
           menu.select(input.ask("выбрать:", range));
-      } while (!"y".equals(this.input.ask("Выйти?(да): ")));
+      } while (!"да".equals(this.input.ask("Выйти?(да): ")));
   }
 
   /**
@@ -165,14 +165,13 @@ public class StartUI {
    * Метод выводит пользовательское меню.
    */
   private void showMenu() {
-    System.out.println("Меню.");
-    System.out.println("0. Добавить новую заявку");
-    System.out.println("1. Показать все заявки");
-    System.out.println("2. Редактировать заявку");
-    System.out.println("3. Удалить заявку");
-    System.out.println("4. Найти заявку по Id");
-    System.out.println("5. Найти заявку по имени");
-    System.out.println("6. Выйти из программы");
+    System.out.println("0. Добавить заявку.");
+    System.out.println("1. Показать все заявки.");
+    System.out.println("2. Редактировать заявку.");
+    System.out.println("3. Удалить заявку.");
+    System.out.println("4. Найти заявку по Id.");
+    System.out.println("5. Найти заявку по имени.");
+    System.out.println("6. Выйти.");
     System.out.println();
   }
 
