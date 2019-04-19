@@ -38,6 +38,18 @@ public class StubInput implements Input {
   }
 
   public int ask (String question, List<Integer> range) {
-    throw new UnsupportedOperationException("Unsupported operation");
+    boolean exist = false;
+    int key = Integer.valueOf(this.value[this.position++]);
+    for (int value : range) {
+      if (value == key) {
+        exist = true;
+        break;
+      }
+    }
+    if (exist) {
+      return key;
+    } else {
+        throw new UnsupportedOperationException("Значение вне диапазона");
+    }
   }
 }
