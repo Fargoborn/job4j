@@ -43,7 +43,7 @@ public class MenuTracker {
     public void fillActions() {
         this.actions.add(new AddItem(0, "Добавить заяву"));
         this.actions.add(new ShowItems(1, "Показать все заявки"));
-        this.actions.add(new UpdateItem(2, "Редактировать заявку"));
+        this.actions.add(new UpdateItem(2));
         this.actions.add(new DeleteItem(3, "Удалить заявку"));
         this.actions.add(new FindItemById(4, "Найти заявку по Id"));
         this.actions.add(new FindItemsByName(5, "Найти заявку по имени"));
@@ -131,7 +131,7 @@ public class MenuTracker {
 
     private class UpdateItem implements UserAction {
 
-        private UpdateItem(int key, String actions) {
+        private UpdateItem(int key) {
         }
 
         @Override

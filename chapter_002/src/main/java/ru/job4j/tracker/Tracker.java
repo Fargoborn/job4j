@@ -23,8 +23,7 @@ public class Tracker {
      * @return Уникальный ключ.
      */
     private String generateId() {
-        String id = String.valueOf(((System.currentTimeMillis() + Math.random())));
-        return id;
+        return String.valueOf(((System.currentTimeMillis() + Math.random())));
     }
 
     /**

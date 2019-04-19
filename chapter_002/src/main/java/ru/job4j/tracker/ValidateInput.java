@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ValidateInput extends ConsoleInput {
 
-    public int ask (String question, List<Integer> range) {
+    public int ask(String question, List<Integer> range) {
         boolean ivalid = true;
         int value = -1;
         do {
@@ -12,10 +12,8 @@ public class ValidateInput extends ConsoleInput {
                 value = super.ask(question, range);
                 ivalid = false;
             } catch (MenuOutException moe) {
-                moe.printStackTrace();
-                System.out.println("Выберете значение из диапазона пунктов Меню");
+                System.out.println("Выберете значение из перечня пунктов Меню");
             } catch (NumberFormatException nfe) {
-                nfe.printStackTrace();
                 System.out.println("Введите корректное значение");
             }
         } while (ivalid);

@@ -75,8 +75,8 @@ public class StartUI {
       }
       do {
           menu.show();
-          menu.select(input.ask("select:", range));
-      } while (!"y".equals(this.input.ask("Exit?(y): ")));
+          menu.select(input.ask("выбрать:", range));
+      } while (!"y".equals(this.input.ask("Выйти?(да): ")));
   }
 
   /**
@@ -181,7 +181,6 @@ public class StartUI {
    * @param args
    */
   public static void main(String[] args) {
-      Input input = new ValidateInput();
-      new StartUI(new ConsoleInput(), new Tracker()).init();
+      new StartUI(new ValidateInput(), new Tracker()).init();
   }
 }
