@@ -38,6 +38,6 @@ public class StubInput implements Input {
   }
 
   public int ask (String question, List<Integer> range) {
-    return -1;
+    throw new UnsupportedOperationException("Unsupported operation");
   }
 }
