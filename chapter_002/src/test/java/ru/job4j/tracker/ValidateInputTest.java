@@ -33,14 +33,28 @@ public class ValidateInputTest {
 
     @Test
     public void whenInvalidInput() {
-        //ValidateInput input = new ValidateInput(new StubInput(new String[] {"invalid", "1"}));
+        ValidateInput input = new ValidateInput(new StubInput(new String[] {"invalid", "1"}));
         ArrayList<Integer> range = new ArrayList();
         range.add(1);
-        //input.ask("Enter", range);
+        input.ask("Enter", range);
         assertThat(
                 this.mem.toString(),
                 is(
                    String.format("Введите корректное значение.%n")
+                )
+        );
+    }
+
+    @Test
+    public void whenOutOfRangeInput() {
+        ValidateInput input = new ValidateInput(new StubInput(new String[] {"100", "1"}));
+        ArrayList<Integer> range = new ArrayList();
+        range.add(1);
+        input.ask("100", range);
+        assertThat(
+                this.mem.toString(),
+                is(
+                        String.format("Выберете значение из перечня пунктов Меню.%n")
                 )
         );
     }
