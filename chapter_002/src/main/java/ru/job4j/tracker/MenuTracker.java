@@ -3,6 +3,7 @@ package ru.job4j.tracker;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("ALL")
 public class MenuTracker {
     /**
      * @param input хранит ссылку на объект .
@@ -70,17 +71,10 @@ public class MenuTracker {
         }
     }
 
-    private class AddItem implements UserAction {
+    private class AddItem extends BaseAction {
 
-        int key = 0;
-        String actions = "Добавить заявку.";
-
-        public AddItem(int key, String actions) {
-        }
-
-        @Override
-        public int key() {
-            return 0;
+        public AddItem(int key, String nameaction) {
+            super(key, nameaction);
         }
 
         /**
@@ -97,24 +91,12 @@ public class MenuTracker {
             System.out.println("--------------------------> Имя : " + item.getName());
             System.out.println("---------------------> описание : " + item.getDecs());
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", key, actions);
-        }
     }
 
-    private class ShowItems implements UserAction {
+    private class ShowItems extends BaseAction {
 
-        int key = 1;
-        String actions = "Показать все заявки.";
-
-        public ShowItems(int key, String actions) {
-        }
-
-        @Override
-        public int key() {
-            return 1;
+        public ShowItems(int key, String nameaction) {
+            super(key, nameaction);
         }
 
         /**
@@ -128,27 +110,13 @@ public class MenuTracker {
                 System.out.println(String.format("------------ ID : %s NAME : %s DESCRIPTION : %s -----------", item.getId(), item.getName(), item.getDecs()));
             }
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", key, actions);
-        }
     }
 
-    private class UpdateItem implements UserAction {
+    @SuppressWarnings("SameParameterValue")
+    private class UpdateItem extends BaseAction {
 
-        int key = 2;
-        String actions = "Редактировать заявку.";
-
-        public UpdateItem(int key, String actions) {
-        }
-
-        private UpdateItem(int key) {
-        }
-
-        @Override
-        public int key() {
-            return 2;
+        private UpdateItem(int key, String nameaction) {
+            super(key, nameaction);
         }
 
         /**
@@ -166,24 +134,12 @@ public class MenuTracker {
             System.out.println("--------------------------> Имя : " + item.getName());
             System.out.println("---------------------> описание : " + item.getDecs());
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", key, actions);
-        }
     }
 
-    private class DeleteItem implements UserAction {
+    private class DeleteItem extends BaseAction {
 
-        int key = 3;
-        String actions = "Удалить заявку.";
-
-        private DeleteItem(int key, String actions) {
-        }
-
-        @Override
-        public int key() {
-            return 3;
+        private DeleteItem(@SuppressWarnings("SameParameterValue") int key, String nameaction) {
+            super(key, nameaction);
         }
 
         /**
@@ -199,24 +155,12 @@ public class MenuTracker {
                     System.out.println("------------ Заявка с таким ID не найдена --------------");
                 }
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", key, actions);
-        }
     }
 
-    private class FindItemById implements UserAction {
+    private class FindItemById extends BaseAction {
 
-        int key = 4;
-        String actions = "Найти заявку по Id.";
-
-        private FindItemById(int key, String actions) {
-        }
-
-        @Override
-        public int key() {
-            return 4;
+        private FindItemById(int key, String nameaction) {
+            super(key, nameaction);
         }
 
         /**
@@ -234,24 +178,12 @@ public class MenuTracker {
                     System.out.println("------------ Заявка с таким ID не найдена --------------");
                 }
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", key, actions);
-        }
     }
 
-    private class FindItemsByName implements UserAction {
+    private class FindItemsByName extends BaseAction {
 
-        int key = 5;
-        String actions = "Найти заявку по имени.";
-
-        private FindItemsByName(int key, String actions) {
-        }
-
-        @Override
-        public int key() {
-            return 5;
+        private FindItemsByName(int key, String nameaction) {
+            super(key, nameaction);
         }
 
         /**
@@ -271,24 +203,12 @@ public class MenuTracker {
                 System.out.println("------------ Заявок с таким Именем не найдено --------------");
             }
         }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", key, actions);
-        }
     }
 
-    private class ExitProgram implements UserAction {
+    private class ExitProgram extends BaseAction {
 
-        int key = 6;
-        String actions = "Выйти.";
-
-        private ExitProgram(int key, String actions) {
-        }
-
-        @Override
-        public int key() {
-            return 6;
+        private ExitProgram(int key, String nameaction) {
+            super(key, nameaction);
         }
 
         /**
@@ -298,11 +218,6 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Выход из программы --------------");
             System.lineSeparator();
-        }
-
-        @Override
-        public String info() {
-            return String.format("%s. %s", key, actions);
         }
     }
 }
