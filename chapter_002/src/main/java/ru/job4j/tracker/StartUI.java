@@ -64,6 +64,14 @@ public class StartUI {
   }
 
   /**
+   * Метод для замены заявки.
+   *
+   */
+  public boolean replase(Tracker tracker, Item item, String id) {
+    return tracker.replace(id, item);
+  }
+
+  /**
    * Основой цикл программы.
    */
   public void init() {
@@ -154,7 +162,7 @@ public class StartUI {
         String name = this.input.ask("Введите новое имя заявки :");
         String desc = this.input.ask("Введите новое описание заявки :");
         Item item = new Item(name, desc, System.currentTimeMillis());
-        if (this.tracker.replace(id, item)) {
+        if (replase(tracker, item, id)) {
             System.out.println("------------ Заявка : " + id + " изменена -----------");
             } else {
                 System.out.println("------------ Заявка : " + id + " не найдена -----------");

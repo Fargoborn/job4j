@@ -19,6 +19,11 @@ public class MenuTracker {
     private List<UserAction> actions = new ArrayList<>();
 
     /**
+     * @param time текущее время в мс..
+     */
+    private long time = System.currentTimeMillis();
+
+    /**
      * Конструктор.
      *
      * @param input   объект типа Input
@@ -27,6 +32,38 @@ public class MenuTracker {
     public MenuTracker(Input input, Tracker tracker) {
         this.input = input;
         this.tracker = tracker;
+    }
+
+
+
+    /**
+     * Метод определяет существует ли заявка с заданным ID.
+     *
+     */
+    public boolean find(Tracker tracker, String id) {
+        boolean res = false;
+        Item item = tracker.findById(id);
+        if (item != null) {
+            res = true;
+        }
+        return res;
+    }
+
+    /**
+     * Метод возвращает заявку с заданным ID.
+     *
+     */
+    public Item findItem(Tracker tracker, String id) {
+        Item item = tracker.findById(id);
+        return item;
+    }
+
+    /**
+     * Метод для замены заявки.
+     *
+     */
+    public boolean replase(Tracker tracker, Item item, String id) {
+        return tracker.replace(id, item);
     }
 
     /**
@@ -85,7 +122,7 @@ public class MenuTracker {
             System.out.println("------------ Добавление новой записи --------------");
             String name = input.ask("Пожалуйста, введите имя заявки:");
             String desc = input.ask("Пожалуйста, введите содержание заявки:");
-            Item item = new Item(name, desc, System.currentTimeMillis());
+            Item item = new Item(name, desc, time);
             tracker.add(item);
             System.out.println("------------ Добавлена запись -> Id : " + item.getId());
             System.out.println("--------------------------> Имя : " + item.getName());
@@ -126,13 +163,17 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Редактирование заявки --------------");
             String id = input.ask("Пожалуйста, введите ID заявки:");
+            if (find(tracker, id)) {
             String name = input.ask("Пожалуйста, введите имя заявки:");
             String desc = input.ask("Пожалуйста, введите содержание заявки:");
-            Item item = new Item(name, desc, System.currentTimeMillis());
-            tracker.replace(id, item);
-            System.out.println("------------ Изменена запись -> Id : " + item.getId());
-            System.out.println("--------------------------> Имя : " + item.getName());
-            System.out.println("---------------------> описание : " + item.getDecs());
+            Item item = new Item(name, desc, time);
+                replase(tracker,item,id);
+                System.out.println("------------ Изменена запись -> Id : " + item.getId());
+                System.out.println("--------------------------> Имя : " + item.getName());
+                System.out.println("---------------------> описание : " + item.getDecs());
+            } else {
+                System.out.println("------------ Не найдена запись -> Id : " + id);
+            }
         }
     }
 
@@ -170,7 +211,7 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Поиск заявки по ID --------------");
             String id = input.ask("Пожалуйста, введите ID заявки:");
-            Item item = tracker.findById(id);
+            Item item = findItem(tracker, id);
             if (item != null) {
                 System.out.println("------------ Найдена заявка --------------");
                 System.out.println(String.format("------------ ID : %s NAME : %s DESCRIPTION : %s -----------", item.getId(), item.getName(), item.getDecs()));
