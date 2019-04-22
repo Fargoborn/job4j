@@ -58,6 +58,8 @@ public class StartUI {
    */
   private long time = System.currentTimeMillis();
 
+  private boolean working = true;
+
   /**
    * Конструтор инициализирующий поля.
    * @param input ввод данных.
@@ -89,7 +91,14 @@ public class StartUI {
       do {
           menu.show();
           menu.select(input.ask("выбрать:", range));
-      } while (!"да".equals(this.input.ask("Выйти?(да): ")));
+          if (!"да".equals(this.input.ask("Выйти?(да): "))) {
+            working = true;
+          }
+      } while (this.working);
+  }
+
+  public void stop () {
+    this.working = false;
   }
 
   /**

@@ -238,6 +238,8 @@ public class MenuTracker {
 
     private class ExitProgram extends BaseAction {
 
+
+
         private ExitProgram(int key, String nameaction) {
             super(key, nameaction);
         }
@@ -248,7 +250,8 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Выход из программы --------------");
-            System.lineSeparator();
+            StartUI ui = new StartUI(input, tracker);
+            ui.stop();
         }
     }
 }
