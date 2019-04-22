@@ -54,6 +54,11 @@ public class StartUI {
   private final Tracker tracker;
 
   /**
+   * @param time текущее время в мс..
+   */
+  private long time = System.currentTimeMillis();
+
+  /**
    * Конструтор инициализирующий поля.
    * @param input ввод данных.
    * @param tracker хранилище заявок.
@@ -94,7 +99,7 @@ public class StartUI {
     System.out.println("------------ Добавление новой заявки --------------");
     String name = this.input.ask("Введите имя заявки :");
     String desc = this.input.ask("Введите описание заявки :");
-    Item item = new Item(name, desc, System.currentTimeMillis());
+    Item item = new Item(name, desc, time);
     this.tracker.add(item);
     System.out.println("------------ Новая заявка с getId : " + item.getId() + " -----------");
   }
@@ -161,7 +166,7 @@ public class StartUI {
         String id = this.input.ask("Введите ID изменяемой заявки :");
         String name = this.input.ask("Введите новое имя заявки :");
         String desc = this.input.ask("Введите новое описание заявки :");
-        Item item = new Item(name, desc, System.currentTimeMillis());
+        Item item = new Item(name, desc, time);
         if (replase(tracker, item, id)) {
             System.out.println("------------ Заявка : " + id + " изменена -----------");
             } else {

@@ -3,7 +3,6 @@ package ru.job4j.tracker;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("ALL")
 public class MenuTracker {
     /**
      * @param input хранит ссылку на объект .
@@ -34,21 +33,6 @@ public class MenuTracker {
         this.tracker = tracker;
     }
 
-
-
-    /**
-     * Метод определяет существует ли заявка с заданным ID.
-     *
-     */
-    public boolean find(Tracker tracker, String id) {
-        boolean res = false;
-        Item item = tracker.findById(id);
-        if (item != null) {
-            res = true;
-        }
-        return res;
-    }
-
     /**
      * Метод возвращает заявку с заданным ID.
      *
@@ -56,14 +40,6 @@ public class MenuTracker {
     public Item findItem(Tracker tracker, String id) {
         Item item = tracker.findById(id);
         return item;
-    }
-
-    /**
-     * Метод для замены заявки.
-     *
-     */
-    public boolean replase(Tracker tracker, Item item, String id) {
-        return tracker.replace(id, item);
     }
 
     /**
@@ -149,7 +125,20 @@ public class MenuTracker {
         }
     }
 
-    @SuppressWarnings("SameParameterValue")
+    private class Replace {
+        private Item item;
+        private String id;
+
+        Replace (String id, Item item) {
+            this.id = id;
+            this.item = item;
+        }
+
+        private boolean replace () {
+        return tracker.replace(id, item);
+        }
+    }
+
     private class UpdateItem extends BaseAction {
 
         private UpdateItem(int key, String nameaction) {
@@ -163,23 +152,24 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Редактирование заявки --------------");
             String id = input.ask("Пожалуйста, введите ID заявки:");
-            if (find(tracker, id)) {
+            Item item = findItem(tracker, id);
+            if (!new Replace(id, item).replace()) {
+                System.out.println("------------ Не найдена запись -> Id : " + id);
+            } else {
             String name = input.ask("Пожалуйста, введите имя заявки:");
             String desc = input.ask("Пожалуйста, введите содержание заявки:");
-            Item item = new Item(name, desc, time);
-                replase(tracker,item,id);
+            item = new Item(name, desc, time);
+                new Replace(id, item).replace();
                 System.out.println("------------ Изменена запись -> Id : " + item.getId());
                 System.out.println("--------------------------> Имя : " + item.getName());
                 System.out.println("---------------------> описание : " + item.getDecs());
-            } else {
-                System.out.println("------------ Не найдена запись -> Id : " + id);
             }
         }
     }
 
     private class DeleteItem extends BaseAction {
 
-        private DeleteItem(@SuppressWarnings("SameParameterValue") int key, String nameaction) {
+        private DeleteItem(int key, String nameaction) {
             super(key, nameaction);
         }
 
