@@ -93,8 +93,13 @@ public class StartUI {
       do {
           menu.show();
           menu.select(input.ask("выбрать:", range));
-          if ("да".equals(this.input.ask("Выйти?(да): "))) {
+          if (range.get(6) == 6) {
             working = false;
+          }
+          if ("да".equals(this.input.ask("Выйти?(да): "))) {
+           break;
+          } else {
+            this.working = true;
           }
       } while (this.working);
   }

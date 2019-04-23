@@ -62,7 +62,7 @@ public class MenuTracker {
         this.actions.add(new DeleteItem(3, "Удалить заявку."));
         this.actions.add(new FindItemById(4, "Найти заявку по Id."));
         this.actions.add(new FindItemsByName(5, "Найти заявку по имени."));
-        this.actions.add(new ExitProgram<StartUI>(6, "Выйти."));
+        this.actions.add(new ExitProgram(ui));
     }
 
     /**
@@ -142,6 +142,8 @@ public class MenuTracker {
 
     private class UpdateItem extends BaseAction {
 
+        private StartUI ui;
+
         private UpdateItem(int key, String nameaction) {
             super(key, nameaction);
         }
@@ -156,6 +158,9 @@ public class MenuTracker {
             Item item = findItem(tracker, id);
             if (!new Replace(id, item).replace()) {
                 System.out.println("------------ Не найдена запись -> Id : " + id);
+                System.out.print("------------ Программа закрыта --------------");
+                ExitProgram exitProgram = new ExitProgram(ui);
+                exitProgram.execute(input, tracker);
             } else {
             String name = input.ask("Пожалуйста, введите имя заявки:");
             String desc = input.ask("Пожалуйста, введите содержание заявки:");
@@ -237,11 +242,12 @@ public class MenuTracker {
         }
     }
 
-    private class ExitProgram<ui extends StartUI> implements UserAction {
+    private class ExitProgram implements UserAction {
 
-        StartUI ui;
+        private StartUI ui;
 
-        private ExitProgram(int key, String nameaction) {
+        ExitProgram(StartUI ui) {
+            this.ui = ui;
         }
 
         @Override
@@ -255,7 +261,6 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Выход из программы --------------");
-            this.ui = new StartUI(input, tracker);
             System.out.println(this.ui);
             this.ui.stop();
         }
