@@ -21,6 +21,7 @@ public class MenuTracker {
      * @param time текущее время в мс..
      */
     private long time = System.currentTimeMillis();
+    private StartUI ui;
 
     /**
      * Конструктор.
@@ -54,14 +55,14 @@ public class MenuTracker {
     /**
      * Метод заполняет массив.
      */
-    public void fillActions() {
+    public void fillActions(StartUI ui) {
         this.actions.add(new AddItem(0, "Добавить заявку."));
         this.actions.add(new ShowItems(1, "Показать все заявки."));
         this.actions.add(new UpdateItem(2, "Редактировать заявку."));
         this.actions.add(new DeleteItem(3, "Удалить заявку."));
         this.actions.add(new FindItemById(4, "Найти заявку по Id."));
         this.actions.add(new FindItemsByName(5, "Найти заявку по имени."));
-        this.actions.add(new ExitProgram(6, "Выйти."));
+        this.actions.add(new ExitProgram<StartUI>(6, "Выйти."));
     }
 
     /**
@@ -236,12 +237,16 @@ public class MenuTracker {
         }
     }
 
-    private class ExitProgram extends BaseAction {
+    private class ExitProgram<ui extends StartUI> implements UserAction {
 
-
+        StartUI ui;
 
         private ExitProgram(int key, String nameaction) {
-            super(key, nameaction);
+        }
+
+        @Override
+        public int key() {
+            return 6;
         }
 
         /**
@@ -250,8 +255,14 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Выход из программы --------------");
-            StartUI ui = new StartUI(input, tracker);
-            ui.stop();
+            this.ui = new StartUI(input, tracker);
+            System.out.println(this.ui);
+            this.ui.stop();
+        }
+
+        @Override
+        public String info() {
+            return "6. Выйти.";
         }
     }
 }

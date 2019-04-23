@@ -60,6 +60,8 @@ public class StartUI {
 
   private boolean working = true;
 
+    private StartUI ui;
+
   /**
    * Конструтор инициализирующий поля.
    * @param input ввод данных.
@@ -84,15 +86,15 @@ public class StartUI {
   public void init() {
       MenuTracker menu = new MenuTracker(this.input, this.tracker);
       List<Integer> range = new ArrayList<>();
-      menu.fillActions();
+      menu.fillActions(this);
       for (int i = 0; i < menu.getActionsLength(); i++) {
           range.add(i);
       }
       do {
           menu.show();
           menu.select(input.ask("выбрать:", range));
-          if (!"да".equals(this.input.ask("Выйти?(да): "))) {
-            working = true;
+          if ("да".equals(this.input.ask("Выйти?(да): "))) {
+            working = false;
           }
       } while (this.working);
   }
