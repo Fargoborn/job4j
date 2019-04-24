@@ -168,7 +168,7 @@ public class TrackerTest {
                 .append("------------ Найдены заявки --------------" + nline)
                 .append("------------ ID : " + item.getId() + " NAME : " + item.getName() + " DESCRIPTION : " + item.getDecs() + " -----------" + nline)
                 .append(this.getMenu())
-                .append("------------ Выход из программы --------------" + nline)
+                .append("----------- Выход из программы -------------" + nline)
                 .append("----------> Программа закрыта <-----------" + nline);
         new StartUI(input, tracker).init();
         assertThat(new String(out.toByteArray()), is(expected.toString()));
@@ -189,7 +189,7 @@ public class TrackerTest {
                     expected.append("------------ ID : " + item.getId() + " NAME : " + item.getName() + " DESCRIPTION : " + item.getDecs() + " -----------").append(nline);
                 }
                 expected.append(this.getMenu())
-                        .append("------------ Выход из программы --------------" + nline)
+                        .append("----------- Выход из программы -------------" + nline)
                         .append("----------> Программа закрыта <-----------" + nline);
         new StartUI(input, tracker).init();
         assertThat(new String(out.toByteArray()), is(expected.toString()));
