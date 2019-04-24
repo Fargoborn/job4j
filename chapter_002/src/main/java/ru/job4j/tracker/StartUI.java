@@ -56,18 +56,16 @@ public class StartUI {
   /**
    * @param time текущее время в мс..
    */
-  private long time = System.currentTimeMillis();
+  private final long time = System.currentTimeMillis();
 
   private boolean working = true;
-
-    private StartUI ui;
 
   /**
    * Конструтор инициализирующий поля.
    * @param input ввод данных.
    * @param tracker хранилище заявок.
    */
-  public StartUI(Input input, Tracker tracker) {
+  private StartUI(Input input, Tracker tracker) {
     this.input = input;
     this.tracker = tracker;
   }
@@ -76,7 +74,7 @@ public class StartUI {
    * Метод для замены заявки.
    *
    */
-  public boolean replase(Tracker tracker, Item item, String id) {
+  private boolean replace(Tracker tracker, Item item, String id) {
     return tracker.replace(id, item);
   }
 
@@ -90,19 +88,16 @@ public class StartUI {
       for (int i = 0; i < menu.getActionsLength(); i++) {
           range.add(i);
       }
-      do {
+
+      while (this.working) {
           menu.show();
           menu.select(input.ask("выбрать:", range));
+          }
           if (range.get(6) == 6) {
+            System.out.println("----------> Программа закрыта <-----------");
             working = false;
           }
-          if ("да".equals(this.input.ask("Выйти?(да): "))) {
-           break;
-          } else {
-            this.working = true;
-          }
-      } while (this.working);
-  }
+      }
 
   public void stop () {
     this.working = false;
@@ -183,7 +178,7 @@ public class StartUI {
         String name = this.input.ask("Введите новое имя заявки :");
         String desc = this.input.ask("Введите новое описание заявки :");
         Item item = new Item(name, desc, time);
-        if (replase(tracker, item, id)) {
+        if (replace(tracker, item, id)) {
             System.out.println("------------ Заявка : " + id + " изменена -----------");
             } else {
                 System.out.println("------------ Заявка : " + id + " не найдена -----------");

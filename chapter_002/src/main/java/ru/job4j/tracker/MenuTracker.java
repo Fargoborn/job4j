@@ -58,7 +58,7 @@ public class MenuTracker {
     public void fillActions(StartUI ui) {
         this.actions.add(new AddItem(0, "Добавить заявку."));
         this.actions.add(new ShowItems(1, "Показать все заявки."));
-        this.actions.add(new UpdateItem(2, "Редактировать заявку."));
+        this.actions.add(new UpdateItem(2, "Редактировать заявку.", ui));
         this.actions.add(new DeleteItem(3, "Удалить заявку."));
         this.actions.add(new FindItemById(4, "Найти заявку по Id."));
         this.actions.add(new FindItemsByName(5, "Найти заявку по имени."));
@@ -88,7 +88,7 @@ public class MenuTracker {
     private class AddItem extends BaseAction {
 
         public AddItem(int key, String nameaction) {
-            super(key, nameaction);
+            super(key, nameaction, ui);
         }
 
         /**
@@ -110,7 +110,7 @@ public class MenuTracker {
     private class ShowItems extends BaseAction {
 
         public ShowItems(int key, String nameaction) {
-            super(key, nameaction);
+            super(key, nameaction, ui);
         }
 
         /**
@@ -142,10 +142,11 @@ public class MenuTracker {
 
     private class UpdateItem extends BaseAction {
 
-        private StartUI ui;
+        private final StartUI ui;
 
-        private UpdateItem(int key, String nameaction) {
-            super(key, nameaction);
+        private UpdateItem(int key, String nameaction, StartUI ui) {
+            super(key, nameaction, ui);
+            this.ui = ui;
         }
 
         /**
@@ -158,7 +159,6 @@ public class MenuTracker {
             Item item = findItem(tracker, id);
             if (!new Replace(id, item).replace()) {
                 System.out.println("------------ Не найдена запись -> Id : " + id);
-                System.out.print("------------ Программа закрыта --------------");
                 ExitProgram exitProgram = new ExitProgram(ui);
                 exitProgram.execute(input, tracker);
             } else {
@@ -176,7 +176,7 @@ public class MenuTracker {
     private class DeleteItem extends BaseAction {
 
         private DeleteItem(int key, String nameaction) {
-            super(key, nameaction);
+            super(key, nameaction, ui);
         }
 
         /**
@@ -197,7 +197,7 @@ public class MenuTracker {
     private class FindItemById extends BaseAction {
 
         private FindItemById(int key, String nameaction) {
-            super(key, nameaction);
+            super(key, nameaction, ui);
         }
 
         /**
@@ -220,7 +220,7 @@ public class MenuTracker {
     private class FindItemsByName extends BaseAction {
 
         private FindItemsByName(int key, String nameaction) {
-            super(key, nameaction);
+            super(key, nameaction, ui);
         }
 
         /**
@@ -244,7 +244,7 @@ public class MenuTracker {
 
     private class ExitProgram implements UserAction {
 
-        private StartUI ui;
+        private final StartUI ui;
 
         ExitProgram(StartUI ui) {
             this.ui = ui;
@@ -260,8 +260,7 @@ public class MenuTracker {
          */
         @Override
         public void execute(Input input, Tracker tracker) {
-            System.out.println("------------ Выход из программы --------------");
-            System.out.println(this.ui);
+            System.out.println("----------- Выход из программы -------------");
             this.ui.stop();
         }
 

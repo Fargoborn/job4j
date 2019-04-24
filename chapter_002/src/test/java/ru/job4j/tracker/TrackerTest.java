@@ -81,7 +81,7 @@ public class TrackerTest {
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         Tracker tracker = new Tracker();     // создаём Tracker
-        Input input = new StubInput(new String[]{"0", "test name", "desc", "да"});   //создаём StubInput с последовательностью действий
+        Input input = new StubInput(new String[]{"0", "test name", "desc", "6"});   //создаём StubInput с последовательностью действий
         new StartUI(input, tracker).init();     //   создаём StartUI и вызываем метод init()
         assertThat(tracker.findAll()[0].getName(), is("test name")); // проверяем, что нулевой элемент массива в трекере содержит имя, введённое при эмуляции.
     }
@@ -93,7 +93,7 @@ public class TrackerTest {
         //Напрямую добавляем заявку
         Item item = tracker.add(new Item("test name", "desc", System.currentTimeMillis()));
         //создаём StubInput с последовательностью действий(производим замену заявки)
-        Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "да"});
+        Input input = new StubInput(new String[]{"2", item.getId(), "test replace", "заменили заявку", "6"});
         // создаём StartUI и вызываем метод init()
         new StartUI(input, tracker).init();
         // проверяем, что нулевой элемент массива в трекере содержит имя, введённое при эмуляции.
@@ -105,7 +105,7 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test name1", "desc", System.currentTimeMillis()));
         tracker.add(new Item("test name2", "desc2", System.currentTimeMillis()));
-        Input input = new StubInput(new String[]{"3", item.getId(), "да"});
+        Input input = new StubInput(new String[]{"3", item.getId(), "6"});
         new StartUI(input, tracker).init();
         assertThat(tracker.findAll()[0].getName(), is("test name2"));
     }
@@ -114,7 +114,7 @@ public class TrackerTest {
     public void whenUserAddItemsThenTrackerFindItemById() {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test name1", "desc", System.currentTimeMillis()));
-        Input input = new StubInput(new String[]{"4", item.getId(), "да"});
+        Input input = new StubInput(new String[]{"4", item.getId(), "6"});
         new StartUI(input, tracker).init();
         assertThat(tracker.findById(item.getId()).getName(), is("test name1"));
     }
@@ -123,7 +123,7 @@ public class TrackerTest {
     public void whenUserAddItemsThenTrackerFindItemByName() {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test name", "desc", System.currentTimeMillis()));
-        Input input = new StubInput(new String[]{"5", item.getName(), "да"});
+        Input input = new StubInput(new String[]{"5", item.getName(), "6"});
         new StartUI(input, tracker).init();
         assertThat(tracker.findByName(item.getName())[0].getName(), is("test name"));
     }
@@ -161,12 +161,15 @@ public class TrackerTest {
     public void userAddItemsThenTrackerFindItemByName() {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test name", "desc", System.currentTimeMillis()));
-        Input input = new StubInput(new String[]{"5", item.getName(), "да"});
+        Input input = new StubInput(new String[]{"5", item.getName(), "6"});
         StringBuilder expected = new StringBuilder()
                 .append(this.getMenu())
                 .append("------------ Поиск заявки по Имени --------------" + nline)
                 .append("------------ Найдены заявки --------------" + nline)
-                .append("------------ ID : " + item.getId() + " NAME : " + item.getName() + " DESCRIPTION : " + item.getDecs() + " -----------" + nline);
+                .append("------------ ID : " + item.getId() + " NAME : " + item.getName() + " DESCRIPTION : " + item.getDecs() + " -----------" + nline)
+                .append(this.getMenu())
+                .append("------------ Выход из программы --------------" + nline)
+                .append("----------> Программа закрыта <-----------" + nline);
         new StartUI(input, tracker).init();
         assertThat(new String(out.toByteArray()), is(expected.toString()));
     }
@@ -177,7 +180,7 @@ public class TrackerTest {
         Item item1 = tracker.add(new Item("test1 name", "desc1", System.currentTimeMillis()));
         Item item2 = tracker.add(new Item("test2 name", "desc2", System.currentTimeMillis()));
         Item item3 = tracker.add(new Item("test3 name", "desc3", System.currentTimeMillis()));
-        Input input = new StubInput(new String[]{"1", "да"});
+        Input input = new StubInput(new String[]{"1", "6"});
         Item[] result = tracker.findAll();
         StringBuilder expected = new StringBuilder()
                 .append(this.getMenu())
@@ -185,6 +188,9 @@ public class TrackerTest {
                 for (Item item : result) {
                     expected.append("------------ ID : " + item.getId() + " NAME : " + item.getName() + " DESCRIPTION : " + item.getDecs() + " -----------").append(nline);
                 }
+                expected.append(this.getMenu())
+                        .append("------------ Выход из программы --------------" + nline)
+                        .append("----------> Программа закрыта <-----------" + nline);
         new StartUI(input, tracker).init();
         assertThat(new String(out.toByteArray()), is(expected.toString()));
         System.setOut(stdout);
