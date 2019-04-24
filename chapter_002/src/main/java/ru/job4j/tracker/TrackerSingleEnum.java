@@ -9,13 +9,14 @@ public enum TrackerSingleEnum {
     private final Tracker tracker = new Tracker();
 
     TrackerSingleEnum() {
+    }
 
+    private Tracker getTrackerSingleEnum() {
+        return tracker;
     }
 
     public static void main(String[] args) {
-
-        for (int i = 0; i < 5; i++) {
-        System.out.println(TrackerSingleEnum.INSTANCE.tracker);
-        }
+        System.out.println(TrackerSingleEnum.INSTANCE.getTrackerSingleEnum());
     }
 }
+
