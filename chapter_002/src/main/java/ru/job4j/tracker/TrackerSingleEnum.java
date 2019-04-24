@@ -11,11 +11,12 @@ public enum TrackerSingleEnum {
     TrackerSingleEnum() {
     }
 
-    private Tracker getTrackerSingleEnum() {
+    Tracker getTrackerSingleEnum() {
         return tracker;
     }
 
     public static void main(String[] args) {
+
         System.out.println(TrackerSingleEnum.INSTANCE.getTrackerSingleEnum());
     }
 }
