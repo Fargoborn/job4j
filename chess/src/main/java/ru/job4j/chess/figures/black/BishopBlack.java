@@ -1,5 +1,6 @@
 package ru.job4j.chess.figures.black;
 
+import ru.job4j.chess.Board;
 import ru.job4j.chess.exceptions.ImpossibleMoveException;
 import ru.job4j.chess.figures.Cell;
 import ru.job4j.chess.figures.Figure;
@@ -23,29 +24,24 @@ public class BishopBlack implements Figure {
     }
 
     @Override
-    public Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException {
-        if (!isDiagonal(source, dest)) {
-            throw new ImpossibleMoveException("Вы не можете перемещать фигуру по этому пути.");
-        }
-        // Расчет дельт шагов.
-        int deltaX = source.x > dest.x ? -1 : 1;
-        int deltaY = source.y > dest.y ? -1 : 1;
-        // Строим путь - заполняем массив шагов.
-        int size = Math.abs(source.x - dest.x);
-        Cell[] steps = new Cell[size];
-        for (int i = 0; i < size; i++) {
-            int x = source.x + (i + 1) * deltaX;
-            int y = source.y + (i + 1) * deltaY;
-            steps[i] = Cell.values()[8 * x + y];
-        }
+    public Cell[] way(Cell source, Cell dest) {
+        int size;
+        Board board = new Board();
+        Cell steps[] = new Cell[0];
+        try {
+            if (board.move(source, dest)) {
+                size = Math.abs(source.x - dest.x);
+                int deltaX = source.x > dest.x ? -1 : 1;
+                int deltaY = source.y > dest.y ? -1 : 1;
+                steps = new Cell[size];
+                for (int i = 0; i < size; i++) {
+                    int x = source.x + (i + 1) * deltaX;
+                    int y = source.y + (i + 1) * deltaY;
+                    steps[i] = Cell.values()[8 * x + y];
+                }
+            }
+        } catch (Exception e) {}
         return steps;
-    }
-
-    /**
-     *Проверка диагонали
-     */
-    private boolean isDiagonal(Cell source, Cell dest) {
-        return (Math.abs(source.x - dest.x) == Math.abs(source.y - dest.y));
     }
 
     @Override
