@@ -23,6 +23,7 @@ public class PriorityQueue {
                 for (int i = 0; i < tasks.size(); i++) {
                     if (tasks.get(i).getPriority() == task.getPriority()) {
                         priority = i;
+                        break;
                     }
                 }
                 tasks.add(priority, task);
